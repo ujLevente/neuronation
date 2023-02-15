@@ -1,4 +1,4 @@
-import { UnitType } from '../../constants';
+import { UnitType } from '../../../constants';
 
 type UnitSelectProps = {
     type: UnitType;
