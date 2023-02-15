@@ -6,9 +6,11 @@ import { RootState } from '../store-ts-util';
 
 type MatchResultType = 'won' | 'lost';
 
-type MatchType = {
-    opponent: UnitType;
-    player: UnitType;
+export type MatchType = {
+    pick: {
+        opponent: UnitType;
+        player: UnitType;
+    };
     result: MatchResultType;
 };
 
@@ -45,12 +47,26 @@ export const gameSlice = createSlice({
             state.score.player += 1;
             state.score.opponent = Math.max(0, state.score.opponent - 1);
         },
+        decrementBoth: (state) => {
+            state.score.opponent = Math.max(0, state.score.opponent - 1);
+            state.score.player = Math.max(0, state.score.player - 1);
+        },
     },
 });
 
-// export const {} = gameSlice.actions;
+export const {
+    addMatchToHistory,
+    incrementOpponent,
+    incrementPlayer,
+    decrementBoth,
+} = gameSlice.actions;
 
 export const selectScore = (state: RootState) => state.game.score;
 export const selectHistory = (state: RootState) => state.game.history;
+export const selectCurrentMatch = (state: RootState) =>
+    state.game.history[state.game.history.length - 1];
+
+export const selectopponentUnitSelectArray = (state: RootState) =>
+    state.game.opponentUnitSelectArray;
 
 export default gameSlice.reducer;
