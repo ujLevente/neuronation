@@ -6,9 +6,10 @@ module.exports = {
             colors: {
                 primary: '#496e8e',
                 secondary: '#7b7fc9',
-                // #5b90be
+                lightBorder: '#7b7fc973',
             },
             borderWidth: {
+                1: '1px',
                 3: '3px',
             },
             opacity: {
