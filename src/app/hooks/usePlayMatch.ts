@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { MatchEvaulationLookup, UnitType } from '../../constants';
 import { randomIntFromInterval } from '../../util';
@@ -7,22 +8,34 @@ import {
     incrementOpponent,
     incrementPlayer,
     MatchType,
-    selectCurrentMatch,
+    ResultType,
+    selectHistory,
     selectopponentUnitSelectArray,
+    selectScore,
+    setGameResult,
 } from '../store/slices/game.slice';
 import { useAppDispatch } from '../store/store-ts-util';
 
 export function usePlayMatch() {
     const dispatch = useAppDispatch();
     const opponentUnitSelectArray = useSelector(selectopponentUnitSelectArray);
-    const lastMatch = useSelector(selectCurrentMatch);
+    const matchHistory = useSelector(selectHistory);
+    const score = useSelector(selectScore);
+
+    useEffect(() => {
+        if (matchHistory.length === 20) {
+            const gameResult: ResultType =
+                score.player > score.opponent ? 'won' : 'lost';
+            dispatch(setGameResult(gameResult));
+        }
+    }, [dispatch, matchHistory, score]);
 
     const selectUnit = (unit: UnitType) => {
         const opponentUnit =
             opponentUnitSelectArray[randomIntFromInterval(0, 3)];
 
         const match: MatchType = {
-            id: lastMatch ? lastMatch.id + 1 : 1,
+            id: matchHistory.length + 1,
             pick: {
                 opponent: opponentUnit,
                 player: unit,

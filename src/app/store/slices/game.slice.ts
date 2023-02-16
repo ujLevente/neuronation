@@ -5,7 +5,7 @@ import { getOpponentUnitSelectArray } from '../../../util';
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '../store-ts-util';
 
-type MatchResultType = 'won' | 'lost';
+export type ResultType = 'won' | 'lost';
 
 export type MatchType = {
     id: number;
@@ -13,10 +13,11 @@ export type MatchType = {
         opponent: UnitType;
         player: UnitType;
     };
-    result: MatchResultType;
+    result: ResultType;
 };
 
 type GameSliceState = {
+    gameResult: ResultType | null;
     score: {
         opponent: number;
         player: number;
@@ -26,6 +27,7 @@ type GameSliceState = {
 };
 
 const initialState: GameSliceState = {
+    gameResult: null,
     score: {
         opponent: 0,
         player: 0,
@@ -41,6 +43,9 @@ export const gameSlice = createSlice({
         addMatchToHistory: (state, action: PayloadAction<MatchType>) => {
             state.history.push(action.payload);
         },
+        setGameResult: (state, action: PayloadAction<ResultType>) => {
+            state.gameResult = action.payload;
+        },
         incrementOpponent: (state) => {
             state.score.opponent += 1;
             state.score.player = Math.max(0, state.score.player - 1);
@@ -53,6 +58,7 @@ export const gameSlice = createSlice({
             state.score.opponent = Math.max(0, state.score.opponent - 1);
             state.score.player = Math.max(0, state.score.player - 1);
         },
+        restartGame: () => initialState,
     },
 });
 
@@ -60,14 +66,16 @@ export const {
     addMatchToHistory,
     incrementOpponent,
     incrementPlayer,
+    restartGame,
     decrementBoth,
+    setGameResult,
 } = gameSlice.actions;
 
 export const selectScore = (state: RootState) => state.game.score;
 export const selectHistory = (state: RootState) => state.game.history;
 export const selectCurrentMatch = (state: RootState) =>
     state.game.history[state.game.history.length - 1];
-
+export const selectGameResult = (state: RootState) => state.game.gameResult;
 export const selectopponentUnitSelectArray = (state: RootState) =>
     state.game.opponentUnitSelectArray;
 

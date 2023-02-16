@@ -12,9 +12,9 @@ export function History() {
     return (
         <div
             className={`overflow-y-auto absolute -right-10 top-0
-         translate-x-full border-l-1 border-l-gray-500 px-5 h-full`}
+         translate-x-full border-l-1 border-l-gray-500 pr-5 pl-1 h-full`}
         >
-            <div className="grid grid-cols-4">
+            <div className="grid grid-cols-4 gap-3">
                 {history
                     .slice(0)
                     .reverse()
