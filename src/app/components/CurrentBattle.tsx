@@ -9,7 +9,7 @@ export function CurrentBattle() {
     }
 
     return (
-        <div className="my-20 border-1 border-lightBorder py-4 rounded-md">
+        <div className="mt-20 border-1 border-lightBorder py-4 rounded-md">
             <div className="flex justify-around mb-6">
                 <div className="flex-1">
                     <p>Player&apos;s pick</p>
