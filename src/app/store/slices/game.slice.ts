@@ -2,6 +2,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UnitType } from '../../../constants';
 import { getOpponentUnitSelectArray } from '../../../util';
+// eslint-disable-next-line import/no-cycle
 import { RootState } from '../store-ts-util';
 
 type MatchResultType = 'won' | 'lost';

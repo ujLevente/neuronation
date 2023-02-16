@@ -27,16 +27,22 @@ export function usePlayMatch() {
         };
 
         if (unit.valueOf() === opponentUnit.valueOf()) {
-            dispatch(decrementBoth);
+            dispatch(decrementBoth());
         }
 
-        if (MatchEvaulationLookup[unit].stronger.valueOf() === opponentUnit) {
+        if (
+            MatchEvaulationLookup[unit].stronger.valueOf() ===
+            opponentUnit.valueOf()
+        ) {
             match.result = 'won';
-            dispatch(incrementPlayer);
+            dispatch(incrementPlayer());
         }
 
-        if (MatchEvaulationLookup[unit].weaker.valueOf() === opponentUnit) {
-            dispatch(incrementOpponent);
+        if (
+            MatchEvaulationLookup[unit].weaker.valueOf() ===
+            opponentUnit.valueOf()
+        ) {
+            dispatch(incrementOpponent());
         }
 
         dispatch(addMatchToHistory(match));
