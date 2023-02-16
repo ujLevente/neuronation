@@ -8,6 +8,7 @@ import { RootState } from '../store-ts-util';
 type MatchResultType = 'won' | 'lost';
 
 export type MatchType = {
+    id: number;
     pick: {
         opponent: UnitType;
         player: UnitType;

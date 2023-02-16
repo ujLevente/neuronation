@@ -24,7 +24,15 @@ export function CurrentBattle() {
                     </p>
                 </div>
             </div>
-            <h3 className="h3 uppercase">{currentMatch.result}</h3>
+            <h3
+                className={`h3 uppercase ${
+                    currentMatch.result === 'won'
+                        ? 'text-green-500'
+                        : 'text-red-500'
+                }`}
+            >
+                {currentMatch.result}
+            </h3>
         </div>
     );
 }
